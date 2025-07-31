@@ -17,7 +17,11 @@ and integration options.
 
 Under the hood, Nest makes use of robust **HTTP server** frameworks like **Express** (the default).  
 
+## Goal
+
+In this tutorial, we'll be building a fully functional **REST API** with NestJS.   
 
 
 
-@4/179
+
+@5/179
