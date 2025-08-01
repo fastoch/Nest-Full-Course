@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Delete, Patch, Param } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Patch, Param, Body } from '@nestjs/common';
 
 @Controller('users') 
 export class UsersController {
@@ -13,13 +13,13 @@ export class UsersController {
   }
 
   @Get(':id') // GET /users/:id
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string) {  // id is a route parameter, hence the @Param decorator
     return { id }
   }
 
   @Post() // POST /users
-  create() {
-    return {}
+  create(@Body() user: {}) {
+    return { user }
   }
 
   @Patch(':id') // PATCH /users/:id

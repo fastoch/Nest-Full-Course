@@ -118,7 +118,7 @@ They can be applied to classes, methods, properties, or parameters to modify the
 
 For example, a method decorated with `@Get()` in a controller will be registered as an HTTP GET route.  
 
-## Controller implementation
+## Controller implementation (building routes)
 
 check the users.controller.ts file to see the implementation of the users' **routes**.  
 
@@ -148,9 +148,11 @@ For that, we just need to place `@Get(':id')` before `@Get('interns')`.
 Then send a GET request to http://localhost:3000/users/interns.  
 This will return `{"id":"interns"}`, because everything after `/users/` will be read as an id value.  
 
-In conclusion, specific static routes like /users/interns need to come before a dynamic route like /users/:id.  
+In conclusion, specific static routes like `/users/interns` need to come BEFORE a dynamic route like `/users/:id`.  
+Because `/users/:id` could accept any id, including 'interns'.  
+
 
 
 
 ---
-@26/179
+@27/179
