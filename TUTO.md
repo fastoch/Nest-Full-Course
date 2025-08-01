@@ -76,14 +76,14 @@ We will use the NestJS CLI to create our first module:
 This cmd does 3 things:
 - creates a 'users' directory inside of the 'src' directory.  
 - creates a users.module.ts file inside the users folder
-- updates the app.module (the root module) to make it import the users module
+- updates the app.module (the root module) to make it **import** the users module
 
 ## Our first controller
 
 Let's run `nest g controller users`  
 This cmd creates a users.controller.ts file, and a users.controller.spec.ts file.  
 
-The first file will contain the routes and request handlers.  
+The first file will contain the **routing** logic and the request **handlers**.  
 The second one will contain the tests related to the users controller.  
 
 This cmd has also updated the users.module with the newly created controller.  
@@ -91,7 +91,17 @@ This cmd has also updated the users.module with the newly created controller.
 ## Our first provider
 
 Let's run `nest g service users`  
+Same as before, this creates 2 files: users.service.ts and users.service.spec.ts.  
+And this updates the users.module with the newly created provider.  
+
+The provider (or service) will contain the logic for our request handlers.  
+Then the service will be **injected** into the controller so the controller can use the handlers.  
+
+# 4. Controllers
+
+Controllers are responsible for handling incoming HTTP requests and returning responses to the client.  
+
 
 
 ---
-@12/179
+@18/179
