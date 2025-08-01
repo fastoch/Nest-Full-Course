@@ -19,12 +19,12 @@ export class UsersController {
 
   @Post() // POST /users
   create(@Body() user: {}) {
-    return { user }
+    return user
   }
 
   @Patch(':id') // PATCH /users/:id
-  update() {
-    return {}
+  update(@Param('id') id: string, @Body() user: {}) {
+    return { id, ...user }
   }
 
   @Delete(':id') // DELETE /users/:id
