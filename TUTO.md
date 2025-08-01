@@ -125,7 +125,7 @@ check the users.controller.ts file to see the implementation of the users' **rou
 The logic for the request handlers will be implemented in the users.**service**.ts file.  
 This service will then be injected into the controller (dependency injection).  
 
-## Routes definition ORDER matters
+## Routes definition ORDER does matter
 
 The **order** in which we define our routes in the controller is **VERY IMPORTANT**.  
 The general rule for ordering routes is to go from most specific to least specific.  
@@ -148,6 +148,7 @@ For that, we just need to place `@Get(':id')` before `@Get('interns')`.
 Then send a GET request to http://localhost:3000/users/interns.  
 This will return `{"id":"interns"}`, because everything after `/users/` will be read as an id value.  
 
+In conclusion, specific static routes like /users/interns need to come before a dynamic route like /users/:id.  
 
 
 
