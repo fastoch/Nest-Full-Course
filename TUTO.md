@@ -70,7 +70,27 @@ Which is why the controller needs to **import** the service.
 
 ## Our first custom Module
 
-We will use the NestJS CLI to create our first module: 
+We will use the NestJS CLI to create our first module:  
+`nest g module users`  
+
+This cmd does 3 things:
+- creates a 'users' directory inside of the 'src' directory.  
+- creates a users.module.ts file inside the users folder
+- updates the app.module (the root module) to make it import the users module
+
+## Our first controller
+
+Let's run `nest g controller users`  
+This cmd creates a users.controller.ts file, and a users.controller.spec.ts file.  
+
+The first file will contain the routes and request handlers.  
+The second one will contain the tests related to the users controller.  
+
+This cmd has also updated the users.module with the newly created controller.  
+
+## Our first provider
+
+Let's run `nest g service users`  
 
 
 ---
