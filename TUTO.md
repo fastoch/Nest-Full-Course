@@ -55,7 +55,7 @@ In the app.controller file, we can see:
 The getHello method returns `this.appService.getHello()`.  
 This is because the getHello method is actually implemented in app.service.  
 
-Now, if we visit http://localhost:3000, we will get a nice 'Hello World!'.  
+Now, if we visit http://localhost:3000, we will get a nice 'Hello World!' message.  
 
 In NestJS, the controller is responsible for defining:
 - the **routes** 
@@ -99,6 +99,12 @@ Then the service will be **injected** into the controller so the controller can 
 
 # 4. Controllers
 
+## REST API debugging tool
+
+I will be using the **Postman** extension for VSCodium to test my HTTP requests.
+
+## What are controllers?
+
 Controllers are responsible for handling incoming HTTP requests and returning responses to the client.  
 The routing mechanism controls which controller receives which requests.  
 
@@ -114,11 +120,36 @@ For example, a method decorated with `@Get()` in a controller will be registered
 
 ## Controller implementation
 
-check the users.controller.ts file.  
+check the users.controller.ts file to see the implementation of the users' **routes**.  
 
 The logic for the request handlers will be implemented in the users.**service**.ts file.  
+This service will then be injected into the controller (dependency injection).  
+
+## Routes definition ORDER matters
+
+The **order** in which we define our routes in the controller is **VERY IMPORTANT**.  
+The general rule for ordering routes is to go from most specific to least specific.  
+
+The router processes routes sequentially from top to bottom and stops at the first one that matches the incoming URL.  
+
+For example, in our users.controller, the `@Get('interns')` route cannot come after the `@Get(':id')` route, 
+because the `:id` parameter is a **wildcard** that matches any string in that segment of the URL.  
+The`@Get(':id')` route would match /users/123, /users/abc, and even /users/interns...  
+
+When a request comes in, the router looks for a matching handler in the order they are defined in our controller.  
+
+If the `@Get(':id')` route is placed before the `@Get('interns')` route, when a request for `GET /users/interns` 
+arrives, the router first checks against `@Get(':id')`. Since `:id` is a wildcard, it's a match! The router then
+executes the `findOne()` method, passing the string "interns" as the id parameter. The `findAllInterns()` 
+handler is never even considered.
+
+We can easily test this behavior with a tool like Postman (VSCodium extension).  
+For that, we just need to place `@Get(':id')` before `@Get('interns')`.  
+Then send a GET request to http://localhost:3000/users/interns.  
+This will return `{"id":"interns"}`, because everything after `/users/` will be read as an id value.  
+
 
 
 
 ---
-@24/179
+@26/179
