@@ -100,8 +100,25 @@ Then the service will be **injected** into the controller so the controller can 
 # 4. Controllers
 
 Controllers are responsible for handling incoming HTTP requests and returning responses to the client.  
+The routing mechanism controls which controller receives which requests.  
+
+Controllers are classes marked with the `@Controller()` decorator.  
+`@Controller('users')` means "this is going to handle the /users route", whatever our domain is.  
+
+## Decorators
+
+They are special functions prefixed with the `@` symbol.   
+They can be applied to classes, methods, properties, or parameters to modify their behavior or add metadata.  
+
+For example, a method decorated with `@Get()` in a controller will be registered as an HTTP GET route.  
+
+## Controller implementation
+
+check the users.controller.ts file.  
+
+The logic for the request handlers will be implemented in the users.**service**.ts file.  
 
 
 
 ---
-@18/179
+@24/179
