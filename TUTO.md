@@ -153,8 +153,25 @@ Because `/users/:id` could accept any id, including 'interns'.
 
 # 5. Providers
 
+## What we have done so far
+
+So now we know how to handle both **params** (/user/:id) and **query params** (/user?role=value) in the **URL**.  
+We also how to get the **body** out of a POST or PATCH request.  
+
+Now, we're going to cover the **logic**, what we'll create inside of our users.service before **injecting** it 
+into users.controller.  
+
+Right now, we're not getting the data we want, we're just getting something back to prove that our **routes** are 
+correct. What we have now is the **skeleton** of the controller.  
+
+## users.service.ts
+
+We have already created the users' provider via `nest g service users`  
+Now we need to implement the methods (request handlers) for the routes that we have created in users.controller.  
+
+
 
 
 
 ---
-@31/179
+@37/179
