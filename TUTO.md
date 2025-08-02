@@ -151,6 +151,8 @@ This will return `{"id":"interns"}`, because everything after `/users/` will be 
 In conclusion, specific static routes like `/users/interns` need to come BEFORE a dynamic route like `/users/:id`.  
 Because `/users/:id` could accept any id, including 'interns'.  
 
+# 5. Providers
+
 
 
 
