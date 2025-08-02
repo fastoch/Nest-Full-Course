@@ -169,9 +169,11 @@ correct. What we have now is the **skeleton** of the controller.
 We have already created the users' provider via `nest g service users`  
 Now we need to implement the methods (request handlers) for the routes that we have created in users.controller.  
 
+Note that not all providers are services, although they are often associated.  
+A service is a type of provider, but providers include other types.  
 
 
 
 
 ---
-@37/179
+@38/179
