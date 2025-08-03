@@ -127,6 +127,8 @@ This service will then be injected into the controller (dependency injection).
 
 ## Routes definition ORDER does matter
 
+For that section, check Dave gray's video at 24min: https://youtu.be/8_X0nSrzrCw?si=FRur-VI6R-ANZLEF&t=1469  
+
 The **order** in which we define our routes in the controller is **VERY IMPORTANT**.  
 The general rule for ordering routes is to go from most specific to least specific.  
 
@@ -263,7 +265,10 @@ So let's go ahead and update our routes in the `users.controller.ts` file.
 
 For example, instead of returning an empty array, here's what the `findAll` method will do:
 ```ts
-
+@Get() // GET /users or /users?role=value
+findAll(@Query('role') role?: 'INTERN' | 'ADMIN' | 'ENGINEER' ) {
+  return this.usersService.findAll(role)
+}
 ```
 
 ---
