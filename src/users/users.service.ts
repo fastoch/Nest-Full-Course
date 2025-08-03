@@ -69,20 +69,19 @@ export class UsersService {
   }
 
   update(id: number, updatedUser: { name?: string, email?: string, role?: 'INTERN' | 'ADMIN' | 'ENGINEER' }) {
-    const user = this.findOne(id)
-    if (updatedUser.name) {
-      user.name = updatedUser.name
-    }
-    if (updatedUser.email) {
-      user.email = updatedUser.email
-    }
-    if (updatedUser.role) {
-      user.role = updatedUser.role
-    }
-    return user
+    this.users = this.users.map(user => {
+      if (user.id === id) {
+        // create a copy of the existing user, and overwrite it with updatedUser data
+        return { ...user, ...updatedUser }
+      }
+      return user
+    })
+    return this.findOne(id)
   }
 
-  remove(id: string) {
-
+  remove(id: number) {
+    const removedUser = this.findOne(id)
+    this.users = this.users.filter(user => user.id !== id)
+    return removedUser
   }
 }
