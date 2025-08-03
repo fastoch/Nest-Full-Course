@@ -179,8 +179,45 @@ We previously talked about injecting a service into a controller, let's be more 
 Providers can be injected into other classes via **constructor parameter injection**, using Nest's 
 built-in **Dependency Injection (DI) system**.  
 
+## Importing the provider into the controller
+
+When we've created the users.service, it was automatically imported into the module and added to the providers list:  
+```ts
+import { UsersService } from './users.service';
+
+@Module({
+  controllers: [UsersController],
+  providers: [UsersService]
+})
+export class UsersModule {}
+```
+
+But we also need to import that service into the controller:
+```ts
+import { UsersService } from './users.service';
+```
+
+## Injecting the service into the controller
+
+Now, we can inject the service into the controller via its constructor:
+```ts
+@Controller('users') 
+export class UsersController {
+
+  constructor(private readonly usersService: UsersService) {}
+
+  // Routes defined here
+}
+```
+
+
+
+## Updating our routes with the service
+
+Now that we've injected UsersService into UsersController, we can use UsersService inside our routes.  
+So let's go ahead and update our routes: check the `users.controller.ts` file 
 
 
 
 ---
-@46/179
+@52/179
