@@ -210,14 +210,61 @@ export class UsersController {
 }
 ```
 
+### How does Dependency Injection (DI) work in NestJS? (this is crucial)
 
+NestJS uses TypeScript's features to implement a powerful and clean DI system.  
+The line `constructor(private readonly usersService: UsersService) {}` uses a TypeScript feature 
+called "**parameter properties** for **constructor injection**".  
+
+When NestJS needs to create an instance of ``UsersController``, it calls the **constructor**.  
+The **parameter** passed to the constructor tells Nest that the creation of a `UsersController` instance requires 
+an argument that is an instance of `UsersService`. NestJS's DI container reads this **type** information.  
+
+Actually, this `constructor(private readonly)` line is a TypeScript shorthand for:
+```ts
+private readonly usersService: UsersService;
+
+constructor(usersService: UsersService) {
+  this.usersService = usersService;
+}
+```
+
+When an HTTP request comes in that needs to be handled by `UsersController`, NestJS does the following:
+- creates an instance of `UsersController`
+- looks at the controller's **constructor** and sees that ie needs an instance of `UsersService`
+- Nest's **IoC** (inversion of control) **container** looks for a provider that can supply an instance of `UsersService`
+- It finds it because `UsersService` was registered in the providers array of the `UsersModule`
+- The IoC container gets (or creates if it doesn't exist yet) a singleton instance of `UsersService` and 
+  automatically passes it as an argument to the `UsersController` constructor.
+
+In short, that single line of code `constructor(private readonly usersService: UsersService) {}` tells NestJS:
+- to create a `UsersController`, you must first find or create a `UsersService` and pass it to me
+- then, make it available inside the controller as a private, read-only property called `this.usersService`
+
+This decouples your controller from the responsibility of creating its own dependencies, making our code
+more modular, easier to manage, and simpler to test.
+
+### Inversion of Control (IoC)
+
+Instead of classes instantiating their own dependencies directly (**tight** coupling), NestJS manages dependencies 
+through its **IoC container**.  
+
+Classes declare their dependencies in their **constructors**, and the IoC container takes responsibility for creating 
+and injecting those dependencies automatically at **runtime**.   
+
+This is typically done using: 
+- the `@Injectable()` decorator to mark providers (services) 
+- and constructor injection in classes like controllers or other services.
 
 ## Updating our routes with the service
 
 Now that we've injected UsersService into UsersController, we can use UsersService inside our routes.  
-So let's go ahead and update our routes: check the `users.controller.ts` file 
+So let's go ahead and update our routes in the `users.controller.ts` file.  
 
+For example, instead of returning an empty array, here's what the `findAll` method will do:
+```ts
 
+```
 
 ---
 @52/179

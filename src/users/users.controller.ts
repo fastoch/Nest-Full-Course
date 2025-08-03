@@ -8,12 +8,7 @@ export class UsersController {
 
   @Get() // GET /users or /users?role=value
   findAll(@Query('role') role?: 'INTERN' | 'ADMIN' | 'ENGINEER' ) {
-    return []
-  }
-
-  @Get('interns') // GET /users/interns
-  findAllInterns() {
-    return []
+    return this.usersService.findAll(role)
   }
 
   @Get(':id') // GET /users/:id
