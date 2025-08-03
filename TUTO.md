@@ -175,12 +175,12 @@ A service is a type of provider, but providers include other types.
 In users.service, notice the `@Injectable` decorator at the top.  
 This decorator attaches metadata that says: "this class is a provider".  
 
-We previously talked about injecting a service into a controller, let's be more specific.  
-Providers can be injected into other classes via **constructor parameter injection**, 
-using Nest's **built-in Dependency Injection (DI) system**.  
+We previously talked about injecting a service into a controller, let's be more specific:  
+Providers can be injected into other classes via **constructor parameter injection**, using Nest's 
+built-in **Dependency Injection (DI) system**.  
 
 
 
 
 ---
-@40/179
+@42/179

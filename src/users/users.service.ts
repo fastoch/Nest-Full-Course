@@ -35,16 +35,19 @@ export class UsersService {
     },
   ]
 
-  findAll() {
-
+  findAll(role?: 'INTERN' | 'ADMIN' | 'ENGINEER') {
+    if (role) {
+      return this.users.filter(user => user.role === role)
+    } 
+    return this.users
   }
 
-  findAllInterns() {
-
+  findAllInterns(role: 'INTERN') {
+    return this.users.filter(user => user.role === role)
   }
 
-  findOne(id: string) {
-
+  findOne(id: number) {
+    return this.users.find(user => user.id === id)
   }
 
   create(user: {}) {
