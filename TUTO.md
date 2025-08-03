@@ -215,7 +215,16 @@ export class UsersController {
 ### How does Dependency Injection (DI) work in NestJS? (this is crucial)
 
 NestJS uses TypeScript's features to implement a powerful and clean DI system.  
-The line `constructor(private readonly usersService: UsersService) {}` uses a TypeScript feature 
+In Nest, thanks to TypeScript capabilities, it's very easy to manage dependencies 
+because they are resolved just by type.  
+
+In the example below, Nest will resolve the `catsService` by creating and returning an instance 
+of `CatsService`:
+```ts
+constructor(private readonly catsService: CatsService) {}
+```
+
+In our case, the line `constructor(private readonly usersService: UsersService) {}` uses a TypeScript feature 
 called "**parameter properties** for **constructor injection**".  
 
 When NestJS needs to create an instance of ``UsersController``, it calls the **constructor**.  
@@ -258,12 +267,12 @@ This is typically done using:
 - the `@Injectable()` decorator to mark providers (services) 
 - and constructor injection in classes like controllers or other services.
 
-## Updating our routes with the service
+## Updating our routes with the usersService instance
 
 Now that we've injected UsersService into UsersController, we can use UsersService inside our routes.  
 So let's go ahead and update our routes in the `users.controller.ts` file.  
 
-For example, instead of returning an empty array, here's what the `findAll` method will do:
+For example, instead of returning an empty array, here's what the `findAll` method will return:
 ```ts
 @Get() // GET /users or /users?role=value
 findAll(@Query('role') role?: 'INTERN' | 'ADMIN' | 'ENGINEER' ) {

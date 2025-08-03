@@ -13,7 +13,7 @@ export class UsersController {
 
   @Get(':id') // GET /users/:id
   findOne(@Param('id') id: string) {  // id is a route parameter, hence the @Param decorator
-    return { id }
+    return this.usersService.findOne(+id) // +id converts the string id to a number
   }
 
   @Post() // POST /users
