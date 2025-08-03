@@ -47,15 +47,39 @@ export class UsersService {
   }
 
   findOne(id: number) {
-    return this.users.find(user => user.id === id)
+    const user = this.users.find(user => user.id === id)
+    if (!user) {
+      throw new Error('User not found')
+    }
+    return user
   }
 
-  create(user: {}) {
-
+  create(user: { name: string, email: string, role: 'INTERN' | 'ADMIN' | 'ENGINEER' }) {
+    // we sort a copy of the users array in descending order based on their id
+    const usersByHighestId = [...this.users].sort((a,b) => b.id - a.id) 
+    // then we build a newUser object
+    const newUser = {
+      // we're not connected to a database, so we need to increment the id ourselves
+      id: usersByHighestId[0].id + 1,
+      // finally, we merge the new id with the rest of the user data
+      ...user
+    }
+    this.users.push(newUser)
+    return newUser
   }
 
-  update(id: string, userUpdate: {}) {
-
+  update(id: number, updatedUser: { name?: string, email?: string, role?: 'INTERN' | 'ADMIN' | 'ENGINEER' }) {
+    const user = this.findOne(id)
+    if (updatedUser.name) {
+      user.name = updatedUser.name
+    }
+    if (updatedUser.email) {
+      user.email = updatedUser.email
+    }
+    if (updatedUser.role) {
+      user.role = updatedUser.role
+    }
+    return user
   }
 
   remove(id: string) {
