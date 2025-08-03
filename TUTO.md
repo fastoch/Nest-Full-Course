@@ -280,5 +280,11 @@ findAll(@Query('role') role?: 'INTERN' | 'ADMIN' | 'ENGINEER' ) {
 }
 ```
 
+For the `create()` method, we're using the same 'user' type in both the service and the controller.  
+It's best practice to put shared type definitions in a dedicated file.  
+We'll do that in the next section => **DTO** Validation (Data Transfer Object)
+
+
+
 ---
-@52/179
+@56/179

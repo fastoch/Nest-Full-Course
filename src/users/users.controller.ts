@@ -17,17 +17,17 @@ export class UsersController {
   }
 
   @Post() // POST /users
-  create(@Body() user: {}) {
-    return user
+  create(@Body() user: { "name": string, "email": string, "role": "INTERN" | "ADMIN" | "ENGINEER"}) {
+    return this.usersService.create(user)
   }
 
   @Patch(':id') // PATCH /users/:id
-  update(@Param('id') id: string, @Body() userUpdate: {}) {
-    return { id, ...userUpdate } // merge the id and userUpdate data into a new object
+  update(@Param('id') id: string, @Body() userUpdate: {"name"?: string, "email"?: string, "role"?: "INTERN" | "ADMIN" | "ENGINEER"}) {
+    return this.usersService.update(+id, userUpdate)
   }
 
   @Delete(':id') // DELETE /users/:id
   remove(@Param('id') id: string) {
-    return { id }
+    return this.usersService.remove(+id)
   }
 }
