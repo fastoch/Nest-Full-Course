@@ -269,7 +269,7 @@ This is typically done using:
 
 ## Updating our routes with the usersService instance
 
-Now that we've injected UsersService into UsersController, we can use UsersService inside our routes.  
+Now that we've injected **UsersService** into **UsersController**, we can use UsersService inside our routes.  
 So let's go ahead and update our routes in the `users.controller.ts` file.  
 
 For example, instead of returning an empty array, here's what the `findAll` method will return:
@@ -281,10 +281,12 @@ findAll(@Query('role') role?: 'INTERN' | 'ADMIN' | 'ENGINEER' ) {
 ```
 
 For the `create()` method, we're using the same 'user' type in both the service and the controller.  
-It's best practice to put shared type definitions in a dedicated file.  
+It's best practice to put **shared** type definitions in a **dedicated** file.  
 We'll do that in the next section => **DTO** Validation (Data Transfer Object)
+
+## Testing our new endpoints (routes)
 
 
 
 ---
-@56/179
+@57/179
