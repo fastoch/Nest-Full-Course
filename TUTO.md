@@ -19,6 +19,8 @@ and integration options.
 
 Under the hood, Nest makes use of robust **HTTP server** frameworks like **Express** (the default).  
 
+---
+
 # 2. Project setup
 
 - Of course, we need **Node**.js installed.  
@@ -30,6 +32,8 @@ Under the hood, Nest makes use of robust **HTTP server** frameworks like **Expre
 
 Once the starter code has been generated, we can start our Nest app in **watch** mode via:   
 `npm run start:dev`
+
+---
 
 # 3. Starter code
 
@@ -97,6 +101,8 @@ And this updates the users.module with the newly created provider.
 The provider (or service) will contain the logic for our request handlers.  
 Then the service will be **injected** into the controller so the controller can use the handlers.  
 
+---
+
 # 4. Controllers
 
 ## REST API debugging tool
@@ -152,6 +158,8 @@ This will return `{"id":"interns"}`, because everything after `/users/` will be 
 
 In conclusion, specific static routes like `/users/interns` need to come BEFORE a dynamic route like `/users/:id`.  
 Because `/users/:id` could accept any id, including 'interns'.  
+
+---
 
 # 5. Providers
 
@@ -284,7 +292,7 @@ For the `create()` method, we're using the same 'user' type in both the service 
 It's best practice to put **shared** type definitions in a **dedicated** file.  
 We'll do that in the next section => **DTO** Validation (Data Transfer Object)
 
-## Testing our new endpoints (routes)
+# 6. Testing our new endpoints (routes)
 
 For that, we can use the Postman extension for VSCodium or any other extension that allows to test HTTP requests.   
 
@@ -295,10 +303,11 @@ Our 5 users have been added through the `users` private property inside our `Use
 
 Then, we can try and get the user with an id of '2' via a GET request to localhost:3000/users/2.  
 
-### POST requests
+### POST request
 
 Now, let's create a new user.  
 To do that, we send a POST request with a JSON body to localhost:3000/users.  
+
 The request body should look like this:
 ```json
 {
@@ -319,6 +328,7 @@ Now, we should have 6 users, which can be verified via a GET request to localhos
 ### PATCH request
 
 Let's update the last user's role via a PATCH request with a JSON body to localhost:3000/users/6.  
+
 The request body should look like this:
 ```json
 {
@@ -330,9 +340,34 @@ We can verify the result via a GET request to localhost:3000/users/6.
 
 ### DELETE request
 
+Let's remove the last user via a DELETE request to localhost:3000/users/6.  
+
+---
+
+# 7. DTO Validation (Data Transfer Object)
+
+Now that our endpoints are working, we need to implement some data validation for incoming requests.  
+Because right now, we're not handling any errors when the requests are wrong.  
+
+To help with that, we use a Nest's feature called **Pipes**.  
+
+## Pipes 
+
+Pipes are a specific type of **middleware** that have 2 typical use cases:
+- **transformation**: transform input data to the desired form
+- **validation**: evaluate input data and throw an exception if not valid, otherwise pass it through unchanged
+
+In both cases, pipes operate on the **arguments** being processed by a **controller route handler**.  
+
+Nest interposes a pipe **just before** a method is invoked, and the pipe receives the arguments destined for the method.  
+Any transformation or validation operation takes place at that time, after which the route handler is invoked with any  
+(potentially) transformed arguments.  
+
+## Using pipes in our users.controller
+
 
 
 
 
 ---
-@62/179
+@65/179
