@@ -290,10 +290,10 @@ For that, we can use the Postman extension for VSCodium or any other extension t
 
 ### GET requests
 
-First, we can send a GET request at localhost:3000/users/ to get the list of all users.  
+First, we can send a GET request to localhost:3000/users/ to get the list of all users.  
 Our 5 users have been added through the `users` private property inside our `UsersService` class.  
 
-Then, we can try and get the user with an id of '2' via a GET request at localhost:3000/users/2.  
+Then, we can try and get the user with an id of '2' via a GET request to localhost:3000/users/2.  
 
 ### POST requests
 
@@ -316,8 +316,23 @@ Note that our `create()` method works well since the new user's id is 6.
 
 Now, we should have 6 users, which can be verified via a GET request to localhost:3000/users.  
 
-###
+### PATCH request
+
+Let's update the last user's role via a PATCH request with a JSON body to localhost:3000/users/6.  
+The request body should look like this:
+```json
+{
+  "role": "ENGINEER"
+}
+```
+
+We can verify the result via a GET request to localhost:3000/users/6.  
+
+### DELETE request
+
+
+
 
 
 ---
-@60/179
+@62/179
