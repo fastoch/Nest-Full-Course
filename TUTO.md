@@ -40,7 +40,7 @@ Once the starter code has been generated, we can start our Nest app in **watch**
 - the app.controller.**spec** file is where we would write the **tests** for the app.controller
 - the app.**service** file is where we will implement the app **provider**
 
-In NestJS, the following words/concepts are very important:
+In NestJS, the following words/concepts are **very important**:
 - module
 - controller
 - service/provider
@@ -118,14 +118,14 @@ They can be applied to classes, methods, properties, or parameters to modify the
 
 For example, a method decorated with `@Get()` in a controller will be registered as an HTTP GET route.  
 
-## Controller implementation (building routes)
+## Controller implementation (pre-building our routes)
 
 check the users.controller.ts file to see the implementation of the users' **routes**.  
 
 The logic for the request handlers will be implemented in the users.**service**.ts file.  
 This service will then be injected into the controller (dependency injection).  
 
-## Routes definition ORDER does matter
+## Routes' definition - ORDER does matter
 
 For that section, check Dave gray's video at 24min: https://youtu.be/8_X0nSrzrCw?si=FRur-VI6R-ANZLEF&t=1469  
 
@@ -286,7 +286,38 @@ We'll do that in the next section => **DTO** Validation (Data Transfer Object)
 
 ## Testing our new endpoints (routes)
 
+For that, we can use the Postman extension for VSCodium or any other extension that allows to test HTTP requests.   
+
+### GET requests
+
+First, we can send a GET request at localhost:3000/users/ to get the list of all users.  
+Our 5 users have been added through the `users` private property inside our `UsersService` class.  
+
+Then, we can try and get the user with an id of '2' via a GET request at localhost:3000/users/2.  
+
+### POST requests
+
+Now, let's create a new user.  
+To do that, we send a POST request with a JSON body to localhost:3000/users.  
+The request body should look like this:
+```json
+{
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "role": "INTERN"
+}
+```
+
+This request should return the newly created user: 
+```json
+{"id":6,"name":"John Doe","email":"john.doe@example.com","role":"INTERN"}
+```
+Note that our `create()` method works well since the new user's id is 6.  
+
+Now, we should have 6 users, which can be verified via a GET request to localhost:3000/users.  
+
+###
 
 
 ---
-@57/179
+@60/179
