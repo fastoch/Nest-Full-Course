@@ -365,9 +365,26 @@ Any transformation or validation operation takes place at that time, after which
 
 ## Using pipes in our users.controller
 
+First, we must import the built-in pipe we want to use (`ParseIntPipe`) at the top of our file:
+```ts
+import { Controller, Get, Post, Delete, Patch, Param, Body, Query, ParseIntPipe } from '@nestjs/common';
+```
 
+Then, we need to insert the pipe as middleware into a route handler.  
+We will use the `ParseIntPipe` in the methods that needed the unary plus operator.  
 
+Here's an example applied to our `remove()` method, before and after adding the pipe:
+```ts
+@Delete(':id') // DELETE /users/:id
+remove(@Param('id') id: string) {
+  return this.usersService.remove(+id)
+}
 
+@Delete(':id') // DELETE /users/:id
+remove(@Param('id', ParseIntPipe) id: number) {
+  return this.usersService.remove(id)
+}
+```
 
 ---
-@65/179
+@66/179
