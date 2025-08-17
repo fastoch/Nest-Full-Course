@@ -412,12 +412,46 @@ But if we send a GET request to localhost:3000/users/1, we will indeed get the u
 Which means the `ParseIntPipe` is working well. It transforms those string numbers into integers.  
 And it also validates the request data, because we get an error if we send letters instead of numbers.  
 
-## Other pipes
+## DTO 
 
-We stille need to validate data when we create a new user or update an existing one.  
+We still need to validate data when we create a new user or update an existing one.  
+We can begin by creating **data transfer object** (DTO) schemas for the data we expect to receive 
+from the different requests.  
 
+We need to determine the DTOs because we're using **TypeScript**.  
+A DTO is an object that defines how the data will be sent over the network.  
 
+**Example** of file named `create-cat.dto.ts`:
+```ts
+export class CreateCatDto {
+  name: string;
+  age: number;
+  breed: string;
+}
+```
+
+We could use a TypeScript interface to define a DTO schema, but we use a class because
+classes are part of the JavaSscript ES6 standard, and therefore classes are preserved as
+real entities in the compiled JavaScript. On the other hand, since TypeScript interfaces 
+are removed during the transpilation, Nest can't refer to them at runtime.  
+
+## DTO for our users
+
+- create a `dto` folder inside of /src/users/.  
+- then, create a `create-user.dto.ts` file inside of this `dto` folder
+
+Here's how it looks: 
+```ts
+export class CreateUserDto {
+  name: string;
+  email: string;
+  role: "ADMIN" | "ENGINEER" | "INTERN";
+}
+```
+
+Now, let's see how to use that DTO in our users.service and users.controller.  
+ 
 
 
 ---
-@68/179
+@70/179
