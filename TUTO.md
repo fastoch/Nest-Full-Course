@@ -459,12 +459,44 @@ fields optional.
 
 Nest provides the `PartialType()` utility function to make this task easier and minimize boilerplate.  
 
+- create a new file `update-user.dto.ts` inside of the `dto` folder
+- Here's how it looks:
+```ts
+import { PartialType } from '@nestjs/mapped-types';
+import { CreateUserDto } from './create-user.dto';
+
+export class UpdateUserDto extends PartialType(CreateUserDto) {}
+```
+
+Note that we need to install the 'mapped-types' package via `npm i @nestjs/mapped-types -D`  
+The `-D` is for adding the package to the devDependencies.  
 
 ## Using our DTOs
 
 Now, let's see how to use our DTOs in our users.service and users.controller.  
+- first, we need to import our DTOs inside `users.controller.ts`:
+```ts
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+```
+- then, in the routes using the 'user' type, replace the union-type with the corresponding DTO:
+```ts
+@Post() // POST /users
+create(@Body() user: CreateUserDto) {
+  return this.usersService.create(user)
+}
 
+@Patch(':id') // PATCH /users/:id
+update(@Param('id', ParseIntPipe) id: number, @Body() userUpdate: UpdateUserDto) {
+  return this.usersService.update(id, userUpdate)
+}
+```  
+
+Now, let's do the same in `users.service.ts`:
+```ts
+
+```
 
 
 ---
-@71/179
+@76/179
