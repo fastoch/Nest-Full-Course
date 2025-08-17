@@ -494,9 +494,24 @@ update(@Param('id', ParseIntPipe) id: number, @Body() userUpdate: UpdateUserDto)
 
 Now, let's do the same in `users.service.ts`:
 ```ts
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
+create(user: CreateUserDto) {
+ // ...
+}
+
+update(id: number, updatedUser: UpdateUserDto) {
+  // ...
+}
 ```
+
+## Handling data validation
+
+We've created and user our DTOs. But we need to modify them in order to make them actually validate incoming data.  
+Nest works well with the **class-validator** library.  
+
 
 
 ---
-@76/179
+@78/179
