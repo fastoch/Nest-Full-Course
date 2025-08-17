@@ -346,8 +346,8 @@ Let's remove the last user via a DELETE request to localhost:3000/users/6.
 
 # 7. DTO Validation (Data Transfer Object)
 
-Now that our endpoints are working, we need to implement some data validation for incoming requests.  
-Because right now, we're not handling any errors when the requests are wrong.  
+Now that our endpoints are working, we need to implement some data **validation** for incoming requests.  
+Because right now, we're not **handling** any **errors** when the requests are bad.  
 
 To help with that, we use a Nest's feature called **Pipes**.  
 
@@ -373,18 +373,51 @@ import { Controller, Get, Post, Delete, Patch, Param, Body, Query, ParseIntPipe 
 Then, we need to insert the pipe as middleware into a route handler.  
 We will use the `ParseIntPipe` in the methods that needed the unary plus operator.  
 
-Here's an example applied to our `remove()` method, before and after adding the pipe:
+Here's an example applied to our `remove()` method:
 ```ts
+// BEFORE adding the pipe
 @Delete(':id') // DELETE /users/:id
 remove(@Param('id') id: string) {
   return this.usersService.remove(+id)
 }
 
+// AFTER adding the pipe
 @Delete(':id') // DELETE /users/:id
 remove(@Param('id', ParseIntPipe) id: number) {
   return this.usersService.remove(id)
 }
 ```
 
+## Testing GET requests after adding pipes
+
+Now, if we send a GET request to localhost:3000/users/aa, we will get a specific error message:  
+```json
+{
+  "message":"Validation failed (numeric string is expected)",
+  "error":"Bad Request",
+  "statusCode":400
+}
+```  
+
+But if we send a GET request to localhost:3000/users/1, we will indeed get the user with an id of 1:
+```json
+{
+  "id": 1,
+  "name": "Leanne Graham",
+  "email": "Sincere@april.biz",
+  "role": "INTERN"
+}
+```  
+
+Which means the `ParseIntPipe` is working well. It transforms those string numbers into integers.  
+And it also validates the request data, because we get an error if we send letters instead of numbers.  
+
+## Other pipes
+
+We stille need to validate data when we create a new user or update an existing one.  
+
+
+
+
 ---
-@66/179
+@68/179
