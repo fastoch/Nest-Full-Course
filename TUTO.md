@@ -469,7 +469,7 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {}
 ```
 
 Note that we need to install the 'mapped-types' package via `npm i @nestjs/mapped-types -D`  
-The `-D` is for adding the package to the devDependencies.  
+The `-D` is for adding the package to the dev dependencies.  
 
 ## Using our DTOs
 
@@ -506,12 +506,22 @@ update(id: number, updatedUser: UpdateUserDto) {
 }
 ```
 
-## Handling data validation
+## Data validation
 
-We've created and user our DTOs. But we need to modify them in order to make them actually validate incoming data.  
-Nest works well with the **class-validator** library.  
+We've created and used our DTOs in the controller and the service provider.  
+But now we need to make them actually validate incoming data.  
 
+We will use **Validation decorators** for that:  
+https://github.com/typestack/class-validator?tab=readme-ov-file#validation-decorators   
+
+- first, we need to add the required dependencies as production dependencies:  
+`npm i class-validator class-transformer`  
+
+- then, we need to import the decorators at the top of our DTO files (create-user and update-user):
+```ts
+
+```
 
 
 ---
-@78/179
+@80/179
