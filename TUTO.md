@@ -437,6 +437,8 @@ are removed during the transpilation, Nest can't refer to them at runtime.
 
 ## DTO for our users
 
+### User creation
+
 - create a `dto` folder inside of /src/users/.  
 - then, create a `create-user.dto.ts` file inside of this `dto` folder
 
@@ -449,9 +451,20 @@ export class CreateUserDto {
 }
 ```
 
-Now, let's see how to use that DTO in our users.service and users.controller.  
- 
+### User update
+
+When building input validation types (also called "DTOs"), it's often useful to build `create` and `update` variations
+on the same type. For example, the `create` variant may require all fields, while the `update` variant may make all 
+fields optional.  
+
+Nest provides the `PartialType()` utility function to make this task easier and minimize boilerplate.  
+
+
+## Using our DTOs
+
+Now, let's see how to use our DTOs in our users.service and users.controller.  
+
 
 
 ---
-@70/179
+@71/179
