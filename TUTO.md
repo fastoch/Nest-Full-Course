@@ -517,13 +517,34 @@ https://github.com/typestack/class-validator?tab=readme-ov-file#validation-decor
 - first, we need to add the required dependencies as production dependencies:  
 `npm i class-validator class-transformer`  
 
-- then, we need to import the decorators at the top of our DTO files (create-user and update-user):
+- then, we need to import the decorators at the top of create-user.dto.ts:
 ```ts
-import { IsEmail, IsEnum } from "class-validator";
+import { IsEmail, IsEnum, IsNotEmpty, IsString } from "class-validator";
 ```
 
 - after that, we need to use these decorators:
+```ts
+export class CreateUserDto {
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
+  @IsEmail()
+  email: string;
+
+  @IsEnum(["ADMIN", "ENGINEER", "INTERN"], {
+    message: 'Valid role required' // this 2nd parameter is in case they don't provide one of the enum values
+  })
+  role: "ADMIN" | "ENGINEER" | "INTERN";
+}
+```
+
+### Importante Note
+
+Note that we don't need to apply any validation decorators to update-user.dto.ts.  
+This is because it extends the partial type of CreateUserDto, and therefore it inherits the decorators from CreateUserDto.  
+
 
 
 ---
-@80/179
+@82/179
