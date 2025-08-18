@@ -519,8 +519,10 @@ https://github.com/typestack/class-validator?tab=readme-ov-file#validation-decor
 
 - then, we need to import the decorators at the top of our DTO files (create-user and update-user):
 ```ts
-
+import { IsEmail, IsEnum } from "class-validator";
 ```
+
+- after that, we need to use these decorators:
 
 
 ---
