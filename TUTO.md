@@ -541,15 +541,15 @@ export class CreateUserDto {
 
 ### Importante Note
 
-Note that we don't need to apply any validation decorators to update-user.dto.ts.  
-This is because it extends the partial type of CreateUserDto, and therefore it inherits the decorators from CreateUserDto.  
+Note that we don't need to apply any **validation decorators** to `update-user.dto.ts`.  
+This is because it extends the **partial type** of CreateUserDto, and therefore it inherits the decorators from CreateUserDto.  
 
-Now we've applied validation to our DTOs, but we cannot really check the requests that are coming in until we apply the 
-validation pipes.
+Now we've applied **validation** to our DTOs, but we cannot really check the requests that are coming in until 
+we apply the validation pipes.
 
 ## Applying validation pipes
 
-Back to our users.controller, let's import the pipe:  
+Back to our users.controller, let's import the validation pipe:  
 `import { Controller, Get, Post, Delete, Patch, Param, Body, Query, ParseIntPipe, ValidationPipe } from '@nestjs/common';`  
 
 Then, we must insert this pipe inside the body of our POST requests:
