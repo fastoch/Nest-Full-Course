@@ -78,7 +78,7 @@ export class UsersService {
   }
 
   remove(id: number) {
-    const removedUser = this.findOne(id)
+    const removedUser = this.findOne(id) // save the removed user before it gets deleted (filtered out)
     this.users = this.users.filter(user => user.id !== id)
     return removedUser
   }
