@@ -132,11 +132,19 @@ For example, a method decorated with `@Get()` in a controller will be registered
 ## Controller implementation (pre-building our routes)
 
 check the users.controller.ts file to see the implementation of the users' **routes**.  
+In a **controller**, we simply define our **routes** (in a specific **order**), and we also declare the
+**request handlers** that will get called when a request is made to those routes.  
 
-The `@Param` decorator extracts a parameter (or many) from the request URL, such as a user's id.  
+### Parameters & Query parameters
+
+- The `@Param` decorator extracts a **parameter** (or many) from the request URL, such as a user's id.  
+- The `@Query` decorator extracts a **query parameter** from the request URL, such as a user's role.  
+  <u>for example</u>: `/users?role=value`  
+
+## Logic belongs to services
 
 The logic for the request handlers will be implemented in the users.**service**.ts file.  
-This service will then be injected into the controller (dependency injection).  
+This service will then be **injected** into the controller = **dependency injection** = DI.  
 
 ## Routes' definition - ORDER does matter
 
