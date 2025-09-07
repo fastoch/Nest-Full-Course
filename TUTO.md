@@ -508,7 +508,7 @@ The `-D` is for adding the package to the dev dependencies.
 
 ## Using our DTOs
 
-Now, let's see how to use our DTOs in our users.service and users.controller.  
+Now, let's see how to use our DTOs in users.service and in users.controller.  
 - first, we need to import our DTOs inside `users.controller.ts`:
 ```ts
 import { CreateUserDto } from './dto/create-user.dto';
