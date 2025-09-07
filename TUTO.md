@@ -138,6 +138,7 @@ In a **controller**, we simply define our **routes** (in a specific **order**), 
 ### Parameters & Query parameters
 
 - The `@Param` decorator extracts a **parameter** (or many) from the request URL, such as a user's id.  
+  <u>for example</u>: `/users/:id`
 - The `@Query` decorator extracts a **query parameter** from the request URL, such as a user's role.  
   <u>for example</u>: `/users?role=value`  
 
@@ -178,6 +179,13 @@ Because `/users/:id` could accept any id, including 'interns'.
 ---
 
 # 5. Providers (chapter 3)
+
+## About providers
+
+The main idea of a provider is that it can be **injected** as a **dependency**.  
+
+A provider is not necessarily a service.  
+Providers include other Nest classes such as: repositories, factories, or helpers.
 
 ## What we have done so far
 
