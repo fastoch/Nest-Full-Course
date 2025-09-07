@@ -484,11 +484,13 @@ export class CreateUserDto {
 }
 ```
 
+The user's id gets created after the "backend" received the above data, hence its absence from `CreatUserDto`.
+
 ### User update
 
-When building input validation types (also called "DTOs"), it's often useful to build `create` and `update` variations
+When building "input validation types" (also called "DTOs"), it's often useful to build `create` and `update` variations
 on the same type. For example, the `create` variant may require all fields, while the `update` variant may make all 
-fields optional.  
+fields **optional**.  
 
 Nest provides the `PartialType()` utility function to make this task easier and minimize boilerplate.  
 
