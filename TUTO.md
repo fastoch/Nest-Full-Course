@@ -182,7 +182,7 @@ Because `/users/:id` could accept any id, including 'interns'.
 
 ## About providers
 
-The main idea of a provider is that it can be **injected** as a **dependency**.  
+The main idea of a provider is that it can be <u>**injected**</u> as a <u>**dependency**</u> into other classes.  
 
 A provider is not necessarily a service.  
 Providers include other Nest classes such as: repositories, factories, or helpers.
