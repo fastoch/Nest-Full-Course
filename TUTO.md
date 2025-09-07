@@ -326,14 +326,14 @@ We'll do that in the next section => **DTO** Validation (Data Transfer Object)
 
 # 6. Testing our new endpoints (routes)
 
-For that, we can use the Postman extension for VSCodium or any other extension that allows to test HTTP requests.   
+For that, we can use the **Bruno** extension for VSCodium, which allows us to test HTTP requests.   
 
 ### GET requests
 
-First, we can send a GET request to localhost:3000/users/ to get the list of all users.  
-Our 5 users have been added through the `users` private property inside our `UsersService` class.  
+First, we can send a GET request to http://localhost:3000/users/ to fetch the list of all users.  
+Our 5 users have been added through the `users` private property inside the `users.service.ts` file.  
 
-Then, we can try and get the user with an id of '2' via a GET request to localhost:3000/users/2.  
+Then, we can try and get the user with an id of '2' via a GET request to http://localhost:3000/users/2.  
 
 ### POST request
 
@@ -376,7 +376,7 @@ Let's remove the last user via a DELETE request to localhost:3000/users/6.
 
 ---
 
-# 7. DTO Validation (Data Transfer Object)
+# 7. DTO Validation (Chapter 4 - Data Transfer Object Validation)
 
 Now that our endpoints are working, we need to implement some data **validation** for incoming requests.  
 Because right now, we're not **handling** any **errors** when the requests are bad.  
