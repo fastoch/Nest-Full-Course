@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
-@Injectable()
+@Injectable() // this decorator marks the class as a "provider"
 export class UsersService {
   private users = [
     {

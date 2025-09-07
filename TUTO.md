@@ -244,11 +244,16 @@ export class UsersController {
 }
 ```
 
+### Singleton by default
+
+When NestJS instantiates the `UsersModule`, it creates a single instance of `UsersService`.  
+By default, all providers in NestJS have a "singleton" scope.  
+This means the framework creates the object once and shares that exact same instance across the entire application.  
+
 ### How does Dependency Injection (DI) work in NestJS? (this is crucial)
 
 NestJS uses TypeScript's features to implement a powerful and clean DI system.  
-In Nest, thanks to TypeScript capabilities, it's very easy to manage dependencies 
-because they are resolved just by type.  
+In Nest, thanks to TypeScript capabilities, it's very easy to manage dependencies since they're resolved just by type.  
 
 In the example below, Nest will resolve the `catsService` by creating and returning an instance 
 of `CatsService`:
@@ -297,7 +302,7 @@ and injecting those dependencies automatically at **runtime**.
 
 This is typically done using: 
 - the `@Injectable()` decorator to mark providers (services) 
-- and constructor injection in classes like controllers or other services.
+- and "**constructor injection**" in classes like controllers or other services.
 
 ## Updating our routes with the usersService instance
 
@@ -310,9 +315,12 @@ For example, instead of returning an empty array, here's what the `findAll` meth
 findAll(@Query('role') role?: 'INTERN' | 'ADMIN' | 'ENGINEER' ) {
   return this.usersService.findAll(role)
 }
-```
+```  
 
-For the `create()` method, we're using the same 'user' type in both the service and the controller.  
+For the `findOne()` method, we need to use the "**unary plus operator**" `+` to convert the id parameter to a number.  
+When we'll use the ParseIntPipe later on, the id will never be a string and we won't need the unary plus operator.  
+
+For the `create()` method, we're using the same 'user' type in both `users.service` and `users.controller`.  
 It's best practice to put **shared** type definitions in a **dedicated** file.  
 We'll do that in the next section => **DTO** Validation (Data Transfer Object)
 
