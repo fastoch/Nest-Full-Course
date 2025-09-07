@@ -110,7 +110,9 @@ Then the service will be **injected** into the controller so the controller can 
 
 ## REST API debugging tool
 
-I will be using the **Postman** extension for VSCodium to test my HTTP requests.
+I will be using the **Bruno** extension for VSCodium to test my HTTP requests.  
+Bruno is a Fast and Git-Friendly **Opensource API client**.  
+https://www.usebruno.com/
 
 ## What are controllers?
 
