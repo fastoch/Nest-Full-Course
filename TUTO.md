@@ -318,7 +318,7 @@ findAll(@Query('role') role?: 'INTERN' | 'ADMIN' | 'ENGINEER' ) {
 ```  
 
 For the `findOne()` method, we need to use the "**unary plus operator**" `+` to convert the id parameter to a number.  
-When we'll use the ParseIntPipe later on, the id will never be a string and we won't need the unary plus operator.  
+When we'll use the `ParseIntPipe` later on, we won't need the unary plus operator (because `id` will be a number already).  
 
 For the `create()` method, we're using the same 'user' type in both `users.service` and `users.controller`.  
 It's best practice to put **shared** type definitions in a **dedicated** file.  
@@ -376,7 +376,7 @@ Let's remove the last user via a DELETE request to localhost:3000/users/6.
 
 ---
 
-# 7. DTO Validation (Chapter 4 - Data Transfer Object Validation)
+# 7. Data Validation (Chapter 4)
 
 Now that our endpoints are working, we need to implement some data **validation** for incoming requests.  
 Because right now, we're not **handling** any **errors** when the requests are bad.  
@@ -385,7 +385,7 @@ To help with that, we use a Nest's feature called **Pipes**.
 
 ## Pipes 
 
-Pipes are a specific type of **middleware** that have 2 typical use cases:
+Pipes are a specific type of **<u>middleware</u>** that have 2 typical use cases:
 - **transformation**: transform input data to the desired form
 - **validation**: evaluate input data and throw an exception if not valid, otherwise pass it through unchanged
 
@@ -402,8 +402,9 @@ First, we must import the built-in pipe we want to use (`ParseIntPipe`) at the t
 import { Controller, Get, Post, Delete, Patch, Param, Body, Query, ParseIntPipe } from '@nestjs/common';
 ```
 
-Then, we need to insert the pipe as middleware into a route handler.  
-We will use the `ParseIntPipe` in the methods that needed the unary plus operator.  
+Then, we need to insert the pipe as **middleware** into a route handler.  
+We will use the `ParseIntPipe` in the methods that needed the unary plus operator for the `id` parameter.  
+`ParseIntPipe` transforms the data into a number, so we won't need the unary plus operator anymore.  
 
 Here's an example applied to our `remove()` method:
 ```ts
@@ -444,7 +445,7 @@ But if we send a GET request to localhost:3000/users/1, we will indeed get the u
 Which means the `ParseIntPipe` is working well. It transforms those string numbers into integers.  
 And it also validates the request data, because we get an error if we send letters instead of numbers.  
 
-## DTO 
+## DTO (Data Transfer Object)
 
 We still need to validate data when we create a new user or update an existing one.  
 We can begin by creating **data transfer object** (DTO) schemas for the data we expect to receive 
