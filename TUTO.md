@@ -198,7 +198,7 @@ into users.controller.
 Right now, we're not getting the data we want, we're just getting something back to prove that our **routes** are 
 correct. What we have now is the **skeleton** of the controller.  
 
-## users.service.ts
+## `users.service.ts`
 
 We have already created the users' provider via `nest g service users`  
 Now we need to implement the methods (request handlers) for the routes that we have created in users.controller.  
