@@ -404,7 +404,7 @@ import { Controller, Get, Post, Delete, Patch, Param, Body, Query, ParseIntPipe 
 
 Then, we need to insert the pipe as **middleware** into a route handler.  
 We will use the `ParseIntPipe` in the methods that needed the unary plus operator for the `id` parameter.  
-`ParseIntPipe` transforms the data into a number, so we won't need the unary plus operator anymore.  
+`ParseIntPipe` transforms string numbers into integers, so we won't need the unary plus operator anymore.  
 
 Here's an example applied to our `remove()` method:
 ```ts
@@ -442,8 +442,8 @@ But if we send a GET request to localhost:3000/users/1, we will indeed get the u
 }
 ```  
 
-Which means the `ParseIntPipe` is working well. It transforms those string numbers into integers.  
-And it also validates the request data, because we get an error if we send letters instead of numbers.  
+Which means the `ParseIntPipe` is working well. It <u>transforms</u> those string numbers into integers.  
+And it also <u>validates</u> the request data, because we get an error if we send letters instead of numbers.  
 
 ## DTO (Data Transfer Object)
 
