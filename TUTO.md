@@ -603,7 +603,7 @@ update(@Param('id', ParseIntPipe) id: number, @Body(ValidationPipe) userUpdate: 
 }
 ```
 
-## Testing some requests
+## Testing our POST and PATCH requests
 
 - start the dev server via `npm run start:dev`
 
@@ -640,7 +640,28 @@ We get the following response:
 {
   "role": "ENGINEER"
 }
+```  
+
+- send a bad PATCH request to localhost:3000/users/1:
+```json
+{
+  "role": "tester"
+}
 ```
+We get the following response:  
+```json
+{
+  "message": [
+    "Valid role required"
+  ],
+  "error": "Bad Request",
+  "statusCode": 400
+}
+```  
+
+- we'll receive a "name should be empty" if we send a POST or PATCH request with an empty string for the name.
+
+
 
 ---
-@84/179
+@85/179
