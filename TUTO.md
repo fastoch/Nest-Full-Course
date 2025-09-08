@@ -659,7 +659,7 @@ We get the following response:
 }
 ```  
 
-- we'll receive a "name should be empty" if we send a POST or PATCH request with an empty string for the name.
+- we'll receive a "name should not be empty" if we send a POST or PATCH request with an empty string for the name.
 
 
 
