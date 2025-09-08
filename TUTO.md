@@ -557,7 +557,7 @@ https://github.com/typestack/class-validator?tab=readme-ov-file#validation-decor
 import { IsEmail, IsEnum, IsNotEmpty, IsString } from "class-validator";
 ```
 
-- after that, we need to use these decorators:
+- after that, we need to use these decorators in our DTO:
 ```ts
 export class CreateUserDto {
   @IsString()
@@ -568,21 +568,20 @@ export class CreateUserDto {
   email: string;
 
   @IsEnum(["ADMIN", "ENGINEER", "INTERN"], {
-    message: 'Valid role required' // this 2nd parameter is in case they don't provide one of the enum values
+    message: 'Valid role required' // this 2nd parameter is in case we don't provide one of the enum values
   })
   role: "ADMIN" | "ENGINEER" | "INTERN";
 }
-```
-
-### Importante Note
+```  
 
 Note that we don't need to apply any **validation decorators** to `update-user.dto.ts`.  
-This is because it extends the **partial type** of CreateUserDto, and therefore it inherits the decorators from CreateUserDto.  
+This is because it extends the **partial type** of `CreateUserDto`, and therefore it inherits the decorators 
+from `CreateUserDto`.  
 
-Now we've applied **validation** to our DTOs, but we cannot really check the requests that are coming in until 
-we apply the validation pipes.
+## Validation decorators + Validation pipes
 
-## Applying validation pipes
+Now we've configured **validation** in our DTOs, but we cannot really check the requests that are coming in until 
+we apply the **validation pipes**.
 
 Back to our users.controller, let's import the validation pipe:  
 `import { Controller, Get, Post, Delete, Patch, Param, Body, Query, ParseIntPipe, ValidationPipe } from '@nestjs/common';`  
