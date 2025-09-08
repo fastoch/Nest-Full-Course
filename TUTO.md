@@ -580,7 +580,7 @@ from `CreateUserDto`.
 
 ## Validation decorators + Validation pipes
 
-Now we've configured **validation** in our DTOs, but we cannot really check the requests that are coming in until 
+Now we've configured **validation** for our DTOs, but we cannot really check the requests that are coming in until 
 we apply the **validation pipes**.
 
 Back to our users.controller, let's import the validation pipe:  
@@ -588,9 +588,59 @@ Back to our users.controller, let's import the validation pipe:
 
 Then, we must insert this pipe inside the body of our POST requests:
 ```ts
+@Post() // POST /users
+create(@Body(ValidationPipe) user: CreateUserDto) {
+  return this.usersService.create(user)
+}
+```
+This will validate data against our DTO, and if the body contains invalid data, we'll get meaningful messages.  
 
+After that, we also need to add the `ValidationPipe` in the body of our PATCH requests:
+```ts
+@Patch(':id') // PATCH /users/:id
+update(@Param('id', ParseIntPipe) id: number, @Body(ValidationPipe) userUpdate: UpdateUserDto) {
+  return this.usersService.update(id, userUpdate)
+}
 ```
 
+## Testing some requests
+
+- start the dev server via `npm run start:dev`
+
+- send a valid POST request to localhost:3000/users with the following body:
+```json
+{
+  "name": "Fantastic Four",
+  "email": "marvel@universe.com",
+  "role": "ENGINEER"
+}
+```
+
+- send a bad POST request to localhost:3000/users with the following body:
+```json
+{
+  "name": "Hulk",
+  "email": "marvel@universe",
+  "role": "ENGINEER"
+}
+```
+We get the following response: 
+```json
+{
+  "message": [
+    "email must be an email"
+  ],
+  "error": "Bad Request",
+  "statusCode": 400
+}
+```
+
+- send a valid PATCH request to localhost:3000/users/1:
+```json
+{
+  "role": "ENGINEER"
+}
+```
 
 ---
-@80/179
+@84/179
