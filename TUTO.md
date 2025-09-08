@@ -624,7 +624,7 @@ update(@Param('id', ParseIntPipe) id: number, @Body(ValidationPipe) userUpdate: 
   "role": "ENGINEER"
 }
 ```
-We get the following response: 
+We get the following response to the bad request: 
 ```json
 {
   "message": [
@@ -648,7 +648,7 @@ We get the following response:
   "role": "tester"
 }
 ```
-We get the following response:  
+We get the following response to the bad request:  
 ```json
 {
   "message": [
@@ -660,8 +660,37 @@ We get the following response:
 ```  
 
 - we'll receive a "name should not be empty" if we send a POST or PATCH request with an empty string for the name.
+- and we'll get a "name should be a string" if we send a request with a number for the name
 
+These tests show that our validation is in place and working.  
+
+## NestJS built-in HTTP exceptions
+
+Right now, if we try to send a GET request to localhost:3000/users/99, we get an empty response.  
+Instead, it would be nice to get a meaningful response such as "User 99 not found".  
+
+To do that, we will use the `NotFoundException` in `users.service.ts`.  
+
+- First of all, we must import the exception: `import { NotFoundException  } from '@nestjs/common';`
+- then, use it in the `findOne` method:
+```ts
+findOne(id: number) {
+  const user = this.users.find(user => user.id === id)
+  if (!user) {
+    throw new NotFoundException(`User ${id} not found`)
+  }
+  return user
+}
+```
+
+We can apply the same logic for a query parameter such as http://localhost:3000/users?role=TOTO
+This request should provide a message like "Users with role TOTO not found".  
+
+To do that, we need to modify the `findAll` method:
+```ts
+
+```
 
 
 ---
-@85/179
+@90/179
