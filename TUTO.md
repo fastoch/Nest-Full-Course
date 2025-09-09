@@ -688,9 +688,22 @@ This request should provide a message like "Users with role TOTO not found".
 
 To do that, we need to modify the `findAll` method:
 ```ts
-
+findAll(role?: 'INTERN' | 'ADMIN' | 'ENGINEER') {
+  if (role) {
+    const rolesArray = this.users.filter(user => user.role === role)
+    if (!rolesArray.length) {
+      throw new NotFoundException(`Users with role ${role} not found`)
+    }
+    return rolesArray
+  } 
+  return this.users
+}
 ```
 
-
 ---
-@90/179
+
+# 8. REST API (Chapter 5)
+
+In this section, we'll get rid of our fake users data (in users.service), and we're going 
+to connect to an actual database through an **ORM** so we can fetch users data from that database.  
+
