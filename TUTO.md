@@ -707,3 +707,9 @@ findAll(role?: 'INTERN' | 'ADMIN' | 'ENGINEER') {
 In this section, we'll get rid of our fake users data (in users.service), and we're going 
 to connect to an actual database through an **ORM** so we can fetch users data from that database.  
 
+An ORM is a piece of software thatserves as a bridge between your application's backend and the database.  
+
+we'll be using **Neon** for our database and **Prisma** for the ORM.  
+- **Neon** is an open-source alternative to AWS Aurora or Google's Cloud SQL for **Postgres**
+- **Prisma** is an open-source ORM tool specifically designed for TypeScript and Node.js environments. 
+
