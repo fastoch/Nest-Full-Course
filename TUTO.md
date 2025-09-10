@@ -725,11 +725,11 @@ These contents can be found in the Dashboard > "Connect to your database" > sele
 ### schema.prisma
 
 - we need to add prisma to our dev dependencies via `npm i prisma -D`
-- then initialize Prisma via `npx prisma init` > this will create a 'prisma' folder
+- then initialize Prisma via `npx prisma init` 
+  - this will create a 'prisma' folder with a `schema.prisma` file in it
 
 The contents we need to copy in our `schema.prisma` file look like this:
 ```.prisma
-// prisma/schema.prisma
 datasource db {
   provider  = "postgresql"
   url  	    = env("DATABASE_URL")
@@ -741,7 +741,7 @@ datasource db {
 ### .env
 
 The *** are just there to hide the password.  
-We must copy the following in a .env file at the root of our project:
+We must copy the following in a `.env` file at the root of our project:
 ```.env
 DATABASE_URL="postgresql://neondb_owner:****************@ep-red-hill-aglo3vkh-pooler.c-2.eu-central-1.aws.neon.tech/fastoch-db?sslmode=require&channel_binding=require"
 # uncomment next line if you use Prisma <5.10
