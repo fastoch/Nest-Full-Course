@@ -751,3 +751,23 @@ DATABASE_URL="postgresql://neondb_owner:****************@ep-red-hill-aglo3vkh-po
 
 ## Modelling our data in the Prisma schema
 
+```prisma
+model Employee {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  email     String    @unique
+  role      Role    
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+enum Role {
+  ADMIN
+  INTERN
+  ENGINEER
+}
+```
+
+With our data model in place, we're now ready to run a **migration**, which will create an "Employee" **table**
+in our online database at **Neon**.  
+
