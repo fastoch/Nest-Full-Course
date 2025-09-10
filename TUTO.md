@@ -704,12 +704,47 @@ findAll(role?: 'INTERN' | 'ADMIN' | 'ENGINEER') {
 
 # 8. REST API (Chapter 5)
 
-In this section, we'll get rid of our fake users data (in users.service), and we're going 
+In this section, we'll get rid of our fake users data (in users.service.ts), and we're going 
 to connect to an actual database through an **ORM** so we can fetch users data from that database.  
 
-An ORM is a piece of software thatserves as a bridge between your application's backend and the database.  
+An ORM is a piece of software that serves as a bridge between your application's backend and the database.  
 
-we'll be using **Neon** for our database and **Prisma** for the ORM.  
-- **Neon** is an open-source alternative to AWS Aurora or Google's Cloud SQL for **Postgres**
+We'll be using **Neon** for our database and **Prisma** for the ORM.  
+- **Neon** is an open-source alternative to AWS Aurora or Google's Cloud SQL for **Postgres**.
 - **Prisma** is an open-source ORM tool specifically designed for TypeScript and Node.js environments. 
+
+## Setting up the Neon database
+
+- Once we'created a Neon account, we need to set up a project.  
+- In this project, a default database will be created from which we must copy two things:
+  - the `schema.prisma` file content
+  - the `.env` file content
+
+These contents can be found in the Dashboard > "Connect to your database" > select 'prisma' in the dropdown menu.  
+
+### schema.prisma
+
+- we need to add prisma to our dev dependencies via `npm i prisma -D`
+- then initialize Prisma via `npx prisma init` > this will create a 'prisma' folder
+
+The contents we need to copy in our `schema.prisma` file look like this:
+```.prisma
+// prisma/schema.prisma
+datasource db {
+  provider  = "postgresql"
+  url  	    = env("DATABASE_URL")
+  // uncomment next line if you use Prisma <5.10
+  // directUrl = env("DATABASE_URL_UNPOOLED")
+}
+```  
+
+### .env
+
+The *** are just there to hide the password.  
+We must copy the following in a .env file at the root of our project:
+```.env
+DATABASE_URL="postgresql://neondb_owner:****************@ep-red-hill-aglo3vkh-pooler.c-2.eu-central-1.aws.neon.tech/fastoch-db?sslmode=require&channel_binding=require"
+# uncomment next line if you use Prisma <5.10
+# DATABASE_URL_UNPOOLED="postgresql://neondb_owner:npg_eSZ3FYXMg7WL@ep-red-hill-aglo3vkh.c-2.eu-central-1.aws.neon.tech/fastoch-db?sslmode=require&channel_binding=require"
+```
 
