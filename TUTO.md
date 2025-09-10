@@ -771,3 +771,28 @@ enum Role {
 With our data model in place, we're now ready to run a **migration**, which will create an "Employee" **table**
 in our online database at **Neon**.  
 
+When we run this migration, we're going to actually save the **SQL** statements that are executed on our database.  
+
+We will do that part at the command line:
+- `npx prisma migrate dev --name init` > this will save the SQL statements in a `migrations` folder inside the prisma folder
+  - `init` is a typical name for a first migration
+  - if we were working with a local database, we could run `npx prisma migrate deploy --name init` to migrate data to an online database
+
+After the operation has completed, we'll get a "Your database is now in sync with your schema" message.  
+The `dev` option also triggered the creation of a `migration.sql` file inside the /prisma/migrations folder.  
+This file contains the **SQL statements** that were executed to create the `Employee` table in our Neon database.
+
+The previous command also triggered the installation of the `@prisma/client` package, which was added to our dependencies in our `package.json`.  
+What happened is that Prisma generated a **tailored client API** based on those models we defined in `schema.prisma`.  
+So now we have an API that we can reference types for as we use this model and as we use Prisma in our application.  
+
+Anytime we change our model, we need to run `npx prisma generate`.
+
+## Modifying our model and updating the database accordingly
+
+Let's remove the `@unique` decorator from the model in our `schema.prisma` file.  
+
+After that, to update the Employee table in our Neon database, we need to do run 2 commands: 
+- `npx prisma generate`
+- `npx prisma migrate dev --name name_change`
+
