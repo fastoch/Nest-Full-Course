@@ -713,7 +713,7 @@ We'll be using **Neon** for our database and **Prisma** for the ORM.
 - **Neon** is an open-source alternative to AWS Aurora or Google's Cloud SQL for **Postgres**.
 - **Prisma** is an open-source ORM tool specifically designed for TypeScript and Node.js environments. 
 
-## Setting up the Neon database
+## Setting up the Neon database and Prisma
 
 - Once we'created a Neon account, we need to set up a project.  
 - In this project, a default database will be created from which we must copy two things:
@@ -727,6 +727,7 @@ These contents can be found in the Dashboard > "Connect to your database" > sele
 - we need to add prisma to our dev dependencies via `npm i prisma -D`
 - then initialize Prisma via `npx prisma init` 
   - this will create a 'prisma' folder with a `schema.prisma` file in it
+- for syntax highlighting in .prisma files, we can install the Prisma extension for VSCode
 
 The contents we need to copy in our `schema.prisma` file look like this:
 ```.prisma
@@ -747,4 +748,6 @@ DATABASE_URL="postgresql://neondb_owner:****************@ep-red-hill-aglo3vkh-po
 # uncomment next line if you use Prisma <5.10
 # DATABASE_URL_UNPOOLED="postgresql://neondb_owner:npg_eSZ3FYXMg7WL@ep-red-hill-aglo3vkh.c-2.eu-central-1.aws.neon.tech/fastoch-db?sslmode=require&channel_binding=require"
 ```
+
+## Modelling our data in the Prisma schema
 
