@@ -713,7 +713,7 @@ We'll be using **Neon** for our database and **Prisma** for the ORM.
 - **Neon** is an open-source alternative to AWS Aurora or Google's Cloud SQL for **Postgres**.
 - **Prisma** is an open-source ORM tool specifically designed for TypeScript and Node.js environments. 
 
-## Setting up the Neon database and Prisma
+## Setting up the Neon database and integrating Prisma into our NestJS project
 
 - Once we'created a Neon account, we need to set up a project.  
 - In this project, a default database will be created from which we must copy two things:
@@ -796,3 +796,15 @@ After that, to update the Employee table in our Neon database, we need to do run
 - `npx prisma generate`
 - `npx prisma migrate dev --name name_change`
 
+Then, if we look at the second migration.sql file, we'll see that the index on the `name` key has been dropped, 
+removing the UNIQUE constraint on this key.  
+
+And now everything is in sync between our application and our Neon Postgres database.  
+The next step is to create a module and a service for our database.
+
+## Creating NestJS module and service for our database
+
+- run ``
+
+---
+@60% done.
