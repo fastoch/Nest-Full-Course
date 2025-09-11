@@ -799,12 +799,27 @@ After that, to update the Employee table in our Neon database, we need to do run
 Then, if we look at the second migration.sql file, we'll see that the index on the `name` key has been dropped, 
 removing the UNIQUE constraint on this key.  
 
-And now everything is in sync between our application and our Neon Postgres database.  
+And now everything is in sync between our backend application and our Neon Postgres database.  
 The next step is to create a module and a service for our database.
 
 ## Creating NestJS module and service for our database
 
-- run ``
+- run `nest g module database`
+- run `nest g service database`
+
+### About the absence of a controller for the database
+
+We don't need a controller for our database because a controller's purpose is to expose **HTTP endpoints** to the outside world.  
+A controller's job is to handle incoming HTTP requests and define the public API endpoints for your application.  
+
+The database is an **internal implementation detail**. We don't want clients to be able to directly send requests to our database.  
+Instead, other services (like our `UsersService`) will use the `DatabaseService` to interact with the database.  
+
+This separation of concerns is a core principle of good software architecture.  
+The controller is the public-facing API, while the database service is an internal tool for our business logic.  
+
+In short, the flow is:  
+Client -> Controller (API Endpoint) -> Service (Business Logic) -> DatabaseService (Persistence)
 
 ---
 @60% done.
