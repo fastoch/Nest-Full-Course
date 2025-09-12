@@ -807,19 +807,84 @@ The next step is to create a module and a service for our database.
 - run `nest g module database`
 - run `nest g service database`
 
-### About the absence of a controller for the database
+### About the absence of controller for the database
 
-We don't need a controller for our database because a controller's purpose is to expose **HTTP endpoints** to the outside world.  
-A controller's job is to handle incoming HTTP requests and define the public API endpoints for your application.  
+We don't need a controller for our database because a controller's purpose is to **expose HTTP endpoints** to the **outside** world.  
+A controller's job is to **handle incoming HTTP requests** and **define the public API endpoints** for your application.  
 
-The database is an **internal implementation detail**. We don't want clients to be able to directly send requests to our database.  
-Instead, other services (like our `UsersService`) will use the `DatabaseService` to interact with the database.  
+The database is an **internal implementation detail**.  
+We don't want clients to be able to directly send requests to our database.  
+Instead, other backend services (like our `UsersService`) will use the `DatabaseService` to interact with the database.  
 
 This separation of concerns is a core principle of good software architecture.  
-The controller is the public-facing API, while the database service is an internal tool for our business logic.  
+The **controller** is the **public-facing API**, while the database service is an internal tool for our business logic.  
 
-In short, the flow is:  
-Client -> Controller (API Endpoint) -> Service (Business Logic) -> DatabaseService (Persistence)
+**In short, the flow is**:  
+Frontend app -> Backend app -> ORM -> Database  
+
+**In more details:**  
+Client (React app + Web browser) -> Controller (API Endpoint) -> Service (Business Logic) -> DatabaseService -> ORM -> Database   
+
+- The Backend application includes the modules, the controllers, the services, the database service, and the ORM.  
+- The **ORM** acts as an **intermediary** between the backend application code and the database
+- The **ORM** is a **backend component** facilitating database communication within the backend application architecture
+
+## The database module
+
+In this file, we should already have the `DatabaseService` provider, and all we need to do is **export** this service:
+```ts
+import { Module } from '@nestjs/common';
+import { DatabaseService } from './database.service';
+
+@Module({
+  providers: [DatabaseService],
+  exports: [DatabaseService],
+})
+export class DatabaseModule {}
+```
+
+## The Database service
+
+- We need to import `OnModuleInit` in this service 
+- We also need to import `PrismaClient` 
+
+After that, our `DatabaseService` needs to extend the `PrismaClient` and to implement the `onModuleInit` method.  
+
+```ts
+import { Injectable, OnModuleInit } from '@nestjs/common';
+import { PrismaClient } from '@prisma/client';
+
+@Injectable()
+export class DatabaseService extends PrismaClient implements OnModuleInit {
+  async onModuleInit() {
+    await this.$connect();
+  }
+} {}
+```  
+
+### About the PrismaClient
+
+The **PrismaClient** needs to explicitly connect to your database before you can start sending queries to it.  
+This is done by calling the `$connect()` method.  
+
+### About the OnModuleInit method
+
+In NestJS, `OnModuleInit` is a **lifecycle hook**.  
+It's' a special method that NestJS automatically calls at a specific point during our application's startup process.  
+
+It ensures that the database connection is established as soon as the `DatabaseService` is ready to be used, 
+but before any other part of our application tries to use it to query the database.  
+
+In short, using `OnModuleInit` is NestJS's way to make sure our `DatabaseService` is successfully connected to the database before our application starts trying to use it.  
+
+### About the $ prefix before `connect()`
+
+The `$` prefix before `connect()` is a **convention** used by **Prisma** to distinguish its own internal management 
+and utility methods from the methods that are dynamically generated based on our data model.  
+
+Prisma generates methods on our client instance that match our model names (e.g., `this.employee.findAll()`).  
+If we had a model method named `connect()`, it would create a conflict.   
+The `$` prefix ensures that **Prisma's built-in methods** will never clash with our model names.
 
 ---
 @60% done.
