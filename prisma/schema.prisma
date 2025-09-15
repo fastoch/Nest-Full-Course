@@ -17,7 +17,7 @@ datasource db {
 }
 
 model Employee {
-  id        Int       @id @default(autoincrement())
+  id        String    @id @default(uuid())
   name      String    
   email     String    @unique
   role      Role    
@@ -30,4 +30,3 @@ enum Role {
   INTERN
   ENGINEER
 }
-

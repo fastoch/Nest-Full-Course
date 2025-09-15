@@ -762,7 +762,7 @@ DATABASE_URL="postgresql://neondb_owner:****************@ep-red-hill-aglo3vkh-po
 
 ```prisma
 model Employee {
-  id        Int       @id @default(autoincrement())
+  id        String    @id @default(uuid())
   name      String    @unique
   email     String    @unique
   role      Role    
