@@ -959,11 +959,23 @@ export class EmployeesModule {}
 
 ## The employees.controller
  
-I cannot finish this course because, around 1h53, Dave Gray is taking a direction I don't think is the right one.  
-He's telling us to not use DTOs and instead use Prisma types directly into our controllers and services, but I think he's wrong about it.  
+- remove the DTO imports at the top, and add `import { Prisma } from '@prisma/client';` instead
+- replace `CreateEmployeeDto` with `Prisma.EmployeeCreateInput`
+- replace `UpdateEmployeeDto` with `Prisma.EmployeeUpdateInput`
 
-To complete this course, I will try and find a tutorial with a focus on combining NestJS and Prisma, such as this one:  
-https://www.youtube.com/watch?v=skQXoZ8chxk
+Finally, we need to update the `findAll` method to include the option to filter by role:
+```ts
+findAll(@Query('role') role?: 'INTERN' | 'ENGINEER' | 'ADMIN') {
+  return this.employeesService.findAll(role);
+}
+```
+Right now, the `role` argument gives us a red squiggly because the `findAll` method in our service is not defined yet.
 
 ## The employees.service
 
+- remove the DTO imports at the top, and add `import { Prisma } from '@prisma/client';` instead
+- replace `CreateEmployeeDto` with `Prisma.EmployeeCreateInput`
+- replace `UpdateEmployeeDto` with `Prisma.EmployeeUpdateInput`
+- 
+
+@66% done.
