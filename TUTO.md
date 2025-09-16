@@ -1005,7 +1005,7 @@ For example, if we wanted to log the ID of the newly created employee.
 6. The `EmployeesController` returns the `Promise` to the NestJS runtime.
 7. The NestJS runtime automatically awaits the final `Promise` to resolve and then sends the resulting data as the HTTP response.  
 
-**Here's why we don't need await**:
+**Here's why we don't need `await`**:
 - The `databaseService.employee.create()` call returns a `Promise`.
 - Our `create` service method is marked `async`, so it is expected to return a `Promise`.
 - By simply returning the `Promise` from the database call, we are fulfilling the contract. 
@@ -1014,4 +1014,4 @@ For example, if we wanted to log the ID of the newly created employee.
 
 
 ---
-@66% done.
+@68% done.

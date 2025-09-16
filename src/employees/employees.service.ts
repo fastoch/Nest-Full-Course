@@ -8,11 +8,18 @@ export class EmployeesService {
   constructor(private readonly databaseService: DatabaseService) {}
 
   async create(createEmployeeDto: Prisma.EmployeeCreateInput) {
-    return 'This action adds a new employee';
+    return this.databaseService.employee.create({
+      data: createEmployeeDto,
+    });
   }
 
-  async findAll() {
-    return `This action returns all employees`;
+  async findAll(role?: 'INTERN' | 'ENGINEER' | 'ADMIN') {
+    if(role) return this.databaseService.employee.findMany({
+      where: {
+        role,
+      }
+    });
+    return this.databaseService.employee.findMany();
   }
 
   async findOne(id: number) {
