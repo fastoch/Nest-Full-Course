@@ -720,7 +720,7 @@ We'll be using **Neon** for our database and **Prisma** for the ORM.
   - the `schema.prisma` file content
   - the `.env` file content
 
-These contents can be found in the Dashboard > "Connect to your database" > select 'prisma' in the dropdown menu.  
+These contents can be found in the Dashboard > Connect > Connect to your database > select 'prisma' in the dropdown menu.  
 
 ### The `schema.prisma` file
 
@@ -921,7 +921,7 @@ The above command will create:
 - DTOs: `create-employee.dto` and `update-employee.dto`
 - an `employee.entity.ts` file, which is a class meant to represent our data model, but we won't use it
 
-This command will also update the app.module.  
+This command will also update the `app.module`.  
 
 **VERY IMPORTANT**:  
 We're not going to use the `entities` or the `dto` files because we'll be using the **Prisma model** that we've 
@@ -1011,7 +1011,11 @@ For example, if we wanted to log the ID of the newly created employee.
 - By simply returning the `Promise` from the database call, we are fulfilling the contract. 
 - We are just passing the `Promise` along for the NestJS runtime to handle.
 
+## Testing our REST API
 
+- start the dev server via `npm run start:dev`
+- send a GET request to localhost:3000/employees
+- send a POST request to localhost:3000/employees
 
 ---
-@68% done.
+@70% done.

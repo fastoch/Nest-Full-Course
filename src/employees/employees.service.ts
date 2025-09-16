@@ -23,14 +23,27 @@ export class EmployeesService {
   }
 
   async findOne(id: number) {
-    return `This action returns a #${id} employee`;
+    return this.databaseService.employee.findUnique({
+      where: {
+        id,
+      }
+    });
   }
 
   async update(id: number, updateEmployeeDto: Prisma.EmployeeUpdateInput) {
-    return `This action updates a #${id} employee`;
+    return this.databaseService.employee.update({
+      where: {
+        id,
+      },
+      data: updateEmployeeDto,
+    });
   }
 
   async remove(id: number) {
-    return `This action removes a #${id} employee`;
+    return this.databaseService.employee.delete({
+      where: {
+        id,
+      }
+    });
   }
 }
