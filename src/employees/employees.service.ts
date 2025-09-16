@@ -7,23 +7,23 @@ export class EmployeesService {
   // injecting the DatabaseService 
   constructor(private readonly databaseService: DatabaseService) {}
 
-  create(createEmployeeDto: Prisma.EmployeeCreateInput) {
+  async create(createEmployeeDto: Prisma.EmployeeCreateInput) {
     return 'This action adds a new employee';
   }
 
-  findAll() {
+  async findAll() {
     return `This action returns all employees`;
   }
 
-  findOne(id: number) {
+  async findOne(id: number) {
     return `This action returns a #${id} employee`;
   }
 
-  update(id: number, updateEmployeeDto: Prisma.EmployeeUpdateInput) {
+  async update(id: number, updateEmployeeDto: Prisma.EmployeeUpdateInput) {
     return `This action updates a #${id} employee`;
   }
 
-  remove(id: number) {
+  async remove(id: number) {
     return `This action removes a #${id} employee`;
   }
 }

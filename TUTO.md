@@ -974,8 +974,44 @@ Right now, the `role` argument gives us a red squiggly because the `findAll` met
 ## The employees.service
 
 - remove the DTO imports at the top, and add `import { Prisma } from '@prisma/client';` instead
+- import the DatabaseService and inject it through the constructor:
+```ts
+import { DatabaseService } from '../database/database.service';
+
+@Injectable()
+export class EmployeesService {
+  // injecting the DatabaseService 
+  constructor(private readonly databaseService: DatabaseService) {}
+```
 - replace `CreateEmployeeDto` with `Prisma.EmployeeCreateInput`
 - replace `UpdateEmployeeDto` with `Prisma.EmployeeUpdateInput`
-- 
 
+Now, we need to make all our methods `async` because our app needs to wait for the database to respond to the requests it receives.  
+
+However, the `await` part is handled inside our `database.service`.   
+The `employees.service` methods only pass along the `Promise` that is returned by the database service.  
+
+We only need to use `await` inside the `employees.service` methods if we want to do something with the result of the promise before returning.  
+For example, if we wanted to log the ID of the newly created employee.
+
+### Why don't we need `await` in the methods of our employee.service
+
+**The flow of a request and the resulting `Promise` is as follows**:
+1. A request hits an endpoint in the `EmployeesController`.
+2. The controller method calls the corresponding method in the `EmployeesService`.
+3. The `EmployeesService` method calls a method on the `databaseService` (which is an instance of PrismaClient).
+4. The `databaseService` method (create, findMany, etc.) performs a database query, which is an **asynchronous** operation. It returns a `Promise`.
+5. The `EmployeesService` method receives this `Promise` and returns it up the chain to the `EmployeesController`.
+6. The `EmployeesController` returns the `Promise` to the NestJS runtime.
+7. The NestJS runtime automatically awaits the final `Promise` to resolve and then sends the resulting data as the HTTP response.  
+
+**Here's why we don't need await**:
+- The `databaseService.employee.create()` call returns a `Promise`.
+- Our `create` service method is marked `async`, so it is expected to return a `Promise`.
+- By simply returning the `Promise` from the database call, we are fulfilling the contract. 
+- We are just passing the `Promise` along for the NestJS runtime to handle.
+
+
+
+---
 @66% done.
