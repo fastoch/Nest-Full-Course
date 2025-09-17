@@ -31,6 +31,7 @@ export class EmployeesService {
   }
 
   async update(id: number, updateEmployeeDto: Prisma.EmployeeUpdateInput) {
+    // the syntax is return this.serviceThatExtendsPrismaClient.modelEntity.PrismaMethod
     return this.databaseService.employee.update({
       where: {
         id,

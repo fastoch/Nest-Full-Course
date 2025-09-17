@@ -854,7 +854,7 @@ import { DatabaseService } from './database.service';
 export class DatabaseModule {}
 ```
 
-## The Database service
+## The Database service (service that extends PrismaClient)
 
 - We need to import `OnModuleInit` in this service 
 - We also need to import `PrismaClient` 
@@ -994,6 +994,21 @@ The `employees.service` methods only pass along the `Promise` that is returned b
 We only need to use `await` inside the `employees.service` methods if we want to do something with the result of the promise before returning.  
 For example, if we wanted to log the ID of the newly created employee.
 
+### The syntax for implementing the methods in our services
+
+```ts
+async methodName(params) {
+  return this.serviceThatExtendsPrismaClient.modelEntity.PrismaMethod({
+    where: {
+      // optional where clause
+    },
+    data: {
+      // optional data clause
+    }
+  })
+}
+```
+
 ### Why don't we need `await` in the methods of our employee.service
 
 **The flow of a request and the resulting `Promise` is as follows**:
@@ -1014,8 +1029,7 @@ For example, if we wanted to log the ID of the newly created employee.
 ## Testing our REST API
 
 - start the dev server via `npm run start:dev`
-- send a GET request to localhost:3000/employees
-- send a POST request to localhost:3000/employees
+- 
 
 ---
 @70% done.
