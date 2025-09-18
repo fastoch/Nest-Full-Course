@@ -1076,5 +1076,30 @@ async function bootstrap() {
 }
 ```
 
+## CORS
+
+- stands for Cross-Origin Resource Sharing.  
+- a mechanism that allows resources to be requested from another domain
+
+It's a **very important** concept when setting up a **REST API**.  
+We need to configure CORS so people that are not on our domain can request some data from our API.  
+
+Under the hood, Nest makes use of the Express `cors` or Fastify `@fastify/cors` packages.  
+These packages provide various options that we can customize based on our requirement.  
+
+To enable CORS, we need to call `enableCors()` inside our `main.ts` file:
+```ts
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  app.enableCors();
+  await app.listen(process.env.PORT ?? 3000);
+}
+```
+
+We can choose to have a list of **allowed origins** and only let those domains access our API.  
+Or we can just set it as above with `app.enableCors()`, and that would make our API publicly accessible to everyone.  
+
+
+
 ---
-@73% done.
+@74% done.
