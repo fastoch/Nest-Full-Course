@@ -1051,8 +1051,8 @@ Our server will return the following response:
 ```
 - we can create a second employee the same way
 - after which we can send another GET request to the same URL and the server will return our 2 employees
-- we should also see our 2 new mployees in our Neon database
-- we can also send a GET request to http://localhost:3000/employees/2
+- we should also see our 2 new employees in our Neon database
+- we can also send a GET request to http://localhost:3000/employees/2 to only get the second employee
 - and if we try and GET http://localhost:3000/employees/3, we should get an empty response for now
 - we can try a PATCH request to update the 2nd employee's role by sending the following to http://localhost:3000/employees/2:
 ```json
@@ -1060,7 +1060,8 @@ Our server will return the following response:
   "role": "INTERN"
 }
 ```
-
+Notice the `updatedAt` time is now different than the `createdAt`.
+- we can also test a DELETE request on employee with id 2 and then GET all employees to check deletion
 
 ---
-@71% done.
+@72% done.
