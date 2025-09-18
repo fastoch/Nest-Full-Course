@@ -1028,8 +1028,39 @@ async methodName(params) {
 
 ## Testing our REST API
 
-- start the dev server via `npm run start:dev`
-- 
+- Let's start the dev server via `npm run start:dev`
+- now if we send a GET request to http://localhost:3000/employees, we'll get an empty array.  
+- let's send a POST request to http://localhost:3000/employees with the following body:
+```json
+{
+  "name": "Dave",
+  "email": "dave@fake.com",
+  "role": "ENGINEER"
+}
+```
+Our server will return the following response:
+```json
+{
+  "id": 1,
+  "name": "Dave",
+  "email": "dave@fake.com",
+  "role": "ENGINEER",
+  "createdAt": "2025-09-18T06:01:24.897Z",
+  "updatedAt": "2025-09-18T06:01:24.897Z"
+}
+```
+- we can create a second employee the same way
+- after which we can send another GET request to the same URL and the server will return our 2 employees
+- we should also see our 2 new mployees in our Neon database
+- we can also send a GET request to http://localhost:3000/employees/2
+- and if we try and GET http://localhost:3000/employees/3, we should get an empty response for now
+- we can try a PATCH request to update the 2nd employee's role by sending the following to http://localhost:3000/employees/2:
+```json
+{
+  "role": "INTERN"
+}
+```
+
 
 ---
-@70% done.
+@71% done.
