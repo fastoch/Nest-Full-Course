@@ -1063,5 +1063,18 @@ Our server will return the following response:
 Notice the `updatedAt` time is now different than the `createdAt`.
 - we can also test a DELETE request on employee with id 2 and then GET all employees to check deletion
 
+# 9. Essential Additions (Chapter 6)
+
+## Global prefix
+
+To set an `api` prefix for every route in our app, we need to modify our `main.ts` file:
+```ts
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  app.setGlobalPrefix('api');
+  await app.listen(process.env.PORT ?? 3000);
+}
+```
+
 ---
-@72% done.
+@73% done.
