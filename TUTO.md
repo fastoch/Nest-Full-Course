@@ -1063,6 +1063,8 @@ Our server will return the following response:
 Notice the `updatedAt` time is now different than the `createdAt`.
 - we can also test a DELETE request on employee with id 2 and then GET all employees to check deletion
 
+---
+
 # 9. Essential Additions (Chapter 6)
 
 ## Global prefix
@@ -1099,7 +1101,40 @@ async function bootstrap() {
 We can choose to have a list of **allowed origins** and only let those domains access our API.  
 Or we can just set it as above with `app.enableCors()`, and that would make our API publicly accessible to everyone.  
 
+In short, CORS controls which origins can interact with our backend API.  
+
+### Allowed Origins
+
+Example config in `main.ts`:
+```ts
+app.enableCors({
+  origin: ['https://trusted.com', 'https://another.trusted.com'],
+  credentials: true
+});
+```
+
+### Public API
+
+To make our NestJS API public:
+```ts
+app.enableCors({
+  origin: "*",
+  credentials: false
+});
+```
+
+Since making our API public exposes endpoints to potential abuse, **rate limiting** and **strong validation** are highly recommended.  
+
+### CORS pitfalls to avoid
+
+- **Reverse proxies** (Nginx, etc.): Ensure they don’t strip CORS headers
+- **Dynamic origins**: When origins are dynamic, ensure correct **validation** logic to avoid accidental exposure
+
+### Rate limiting
+
+A common technique to protect our app from brute-force attacks is **rate limiting**.  
+- We need to add a dependency to handle rate limiting: `npm i @nestjs/throttler`  
 
 
 ---
-@74% done.
+@75% done.
