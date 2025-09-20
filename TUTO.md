@@ -1134,7 +1134,13 @@ Since making our API public exposes endpoints to potential abuse, **rate limitin
 
 A common technique to protect our app from brute-force attacks is **rate limiting**.  
 - We need to add a dependency to handle rate limiting: `npm i @nestjs/throttler`  
+- let's apply this to our `app.module.ts` file:
+```ts
+import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 
+
+```
 
 ---
 @75% done.
