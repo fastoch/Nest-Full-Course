@@ -1078,6 +1078,8 @@ async function bootstrap() {
 }
 ```
 
+After that, we need to send request to http://localhost:3000/api/employees instead of http://localhost:3000/employees.  
+
 ## CORS
 
 - stands for Cross-Origin Resource Sharing.  
@@ -1133,14 +1135,37 @@ Since making our API public exposes endpoints to potential abuse, **rate limitin
 ### Rate limiting
 
 A common technique to protect our app from brute-force attacks is **rate limiting**.  
-- We need to add a dependency to handle rate limiting: `npm i @nestjs/throttler`  
-- let's apply this to our `app.module.ts` file:
+- We need to add a specific dependency to handle rate limiting: `npm i @nestjs/throttler`  
+- let's apply this in our `app.module.ts` file:
 ```ts
+// other imports
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 
-
+@Module({
+  imports: [
+    UsersModule, 
+    DatabaseModule, 
+    EmployeesModule,
+    // configuring rate limiting (recommended for a public API)
+    ThrottlerModule.forRoot([{
+      name: 'short',
+      ttl: 1000, // time to live of 1 second
+      limit: 3, // 3 requests per second
+    }])
+  ],
+  controllers: [AppController],
+  providers: [AppService, {
+    provide: APP_GUARD,
+    useClass: ThrottlerGuard,
+  }],
+})
+export class AppModule {}
 ```
+The `.forRoot()` method is a convention in NestJS for modules that need to be configured once in the root module (`AppModule`).  
+If a client exceeds the limit of 3 requests per second, they'll receive a `429 Too Many Requests` error response.  
+
+
 
 ---
-@75% done.
+@78% done.
