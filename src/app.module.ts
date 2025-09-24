@@ -14,9 +14,15 @@ import { APP_GUARD } from '@nestjs/core';
     EmployeesModule,
     // configuring rate limiting (recommended for a public API)
     ThrottlerModule.forRoot([{
+      // max 3 requests per second
       name: 'short',
-      ttl: 1000, // time to live of 1 second
-      limit: 3, // 3 requests per second
+      ttl: 1000, 
+      limit: 3, 
+    },{
+      // max 50 requests per minute
+      name: 'long',
+      ttl: 60000, 
+      limit: 50,
     }])
   ],
   controllers: [AppController],

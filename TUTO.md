@@ -1149,9 +1149,15 @@ import { APP_GUARD } from '@nestjs/core';
     EmployeesModule,
     // configuring rate limiting (recommended for a public API)
     ThrottlerModule.forRoot([{
+      // max 3 requests per second
       name: 'short',
-      ttl: 1000, // time to live of 1 second
-      limit: 3, // 3 requests per second
+      ttl: 1000, 
+      limit: 3, 
+    },{
+      // max 50 requests per minute
+      name: 'long',
+      ttl: 60000, 
+      limit: 50,
     }])
   ],
   controllers: [AppController],
@@ -1163,9 +1169,20 @@ import { APP_GUARD } from '@nestjs/core';
 export class AppModule {}
 ```
 The `.forRoot()` method is a convention in NestJS for modules that need to be configured once in the root module (`AppModule`).  
-If a client exceeds the limit of 3 requests per second, they'll receive a `429 Too Many Requests` error response.  
+If a client exceeds the specified limits, they'll receive a `429 Too Many Requests` error response.  
 
+### Overriding the rate limit inside our Employees controller
 
+- we need to `import { Throttle, SkipThrottle } from '@nestjs/throttler';`
+- to skip the rate limits entirely, we can just add `@SkipThrottle()` above the `@Controller()` decorator
+- to only apply the rate limits to a specific route handler, we must add `@SkipThrottle({ default: false })` above that handler
+```ts
+@SkipThrottle({ default: false })
+@Get()
+findAll(@Query('role') role?: 'INTERN' | 'ENGINEER' | 'ADMIN') {
+  return this.employeesService.findAll(role);
+}
+```
 
 ---
-@78% done.
+@79% done.
